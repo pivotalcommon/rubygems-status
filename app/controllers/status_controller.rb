@@ -1,4 +1,6 @@
 class StatusController < ApplicationController
+  respond_to :html, :json
+
   def show
     @pings = Ping.all.sort_by { |x| x.service }
 
@@ -11,5 +13,6 @@ class StatusController < ApplicationController
     else
       @status = @pings.any? { |x| x.down? } ? "partial" : "up"
     end
+    respond_with @status
   end
 end
